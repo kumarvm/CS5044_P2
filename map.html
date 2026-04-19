@@ -1,0 +1,66 @@
+<!-- Run with: python -m http.server -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Endangered Languages of the World</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Endangered Languages of the World</h1>
+    <p class="intro">
+      <strong>Endangered languages</strong> are those at risk of falling out of use, typically as their speakers shift to more dominant languages. This visualization explores the geographic distribution of endangered languages, the countries that share them, and the factors contributing to their endangerment. Use the controls below to filter by degree of endangerment, minimum number of speakers, and continent. Hover or click on a language or country to see more details.
+    </p>
+  </header>
+
+  <section id="controls">
+    <fieldset>
+      <legend>Degree of endangerment</legend>
+      <div id="endangerment-filters"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Minimum speakers</legend>
+      <input type="range" id="speakers-min" min="0" max="100" value="0" step="1">
+      <span id="speakers-min-val">0</span>
+    </fieldset>
+    <fieldset>
+      <legend>Continent</legend>
+      <select id="continent-filter">
+        <option value="all">All continents</option>
+        <option value="Africa">Africa</option>
+        <option value="Americas">Americas</option>
+        <option value="Asia">Asia</option>
+        <option value="Europe">Europe</option>
+        <option value="Oceania">Oceania</option>
+      </select>
+    </fieldset>
+    <fieldset class="status">
+      <legend>Showing</legend>
+      <span id="count-display">&mdash;</span>
+    </fieldset>
+  </section>
+
+  <section id="views">
+    <div class="view">
+      <h2>Geographic distribution</h2>
+      <svg id="map"></svg>
+    </div>
+    <div class="view">
+      <h2>Countries sharing endangered languages</h2>
+      <svg id="network"></svg>
+    </div>
+  </section>
+
+  <section id="details">
+    <p class="placeholder">Hover or click a language / country to see details here.</p>
+  </section>
+
+  <script src="app.js"></script>
+  <script src="map.js"></script>
+  <script src="network.js"></script>
+  <script>Coordinator.start();</script>
+</body>
+</html>
