@@ -112,6 +112,10 @@ const Coordinator = {
       const countries = Array.from(new Set(
         rows.map(r => (r.Countries || "").trim()).filter(Boolean)
       ));
+      const isoCodes = Array.from(new Set(
+        rows.map(r => (r["ISO639-3 codes"] || "").trim())
+          .filter(code => code && code !== "" && code !== "None")
+      ));
       return {
         id,
         name: r0["Name in English"],
@@ -121,7 +125,9 @@ const Coordinator = {
         endangerment: r0["Degree of endangerment"],
         speakers: +r0["Number of speakers"] || 0,
         lat: +r0.Latitude,
-        lon: +r0.Longitude
+        lon: +r0.Longitude,
+        locDesc: r0['Description of the location'] || "No description given",
+        iso: isoCodes || "None found"
       };
     }).filter(d => !isNaN(d.lat) && !isNaN(d.lon));
 
@@ -167,6 +173,8 @@ const Coordinator = {
       <p><strong>Speakers:</strong> ${d.speakers.toLocaleString()}</p>
       <p><strong>Countries:</strong> ${d.countries.join(", ") || "—"}</p>
       ${d.altNames ? `<p><strong>Also known as:</strong> ${d.altNames}</p>` : ""}
+      <p><strong>ISO639-3 Codes:</strong> ${d.iso}</p>
+      <p><strong>Location Description:</strong> ${d.locDesc}</p>
     `);
   },
 
