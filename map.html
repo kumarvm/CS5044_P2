@@ -44,15 +44,23 @@
   </section>
 
   <section id="views">
-    <div class="view">
-      <h2>Geographic distribution</h2>
-      <svg id="map"></svg>
-    </div>
+  <div class="map-container">
+    <h2>Geographic distribution</h2>
+    <svg id="map"></svg>
+  </div>
+
+  <!-- Two views below -->
+  <div class="bottom-views">
     <div class="view">
       <h2>Countries sharing endangered languages</h2>
       <svg id="network"></svg>
     </div>
-  </section>
+    <div class="view">
+      <h2>Distribution of Endangered Languages By Country</h2>
+      <svg id="chart"></svg>
+    </div>
+  </div>
+</section>
 
   <section id="details">
     <p class="placeholder">Click a language / country to see details here.</p>
@@ -61,6 +69,7 @@
   <script src="app.js"></script>
   <script src="map.js"></script>
   <script src="network.js"></script>
+  <script src="chart.js"></script>
   <script>Coordinator.start();</script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 // app.js — data loading, filter state, cross-view coordination.
-// Expects MapView and NetworkView globals (defined in map.js / network.js).
+// Expects MapView, NetworkView, ChartView globals (defined in map.js / network.js / chart.js).
 
 const ENDANGERMENT_LEVELS = [
   "Vulnerable",
@@ -112,10 +112,15 @@ const Coordinator = {
       const countries = Array.from(new Set(
         rows.map(r => (r.Countries || "").trim()).filter(Boolean)
       ));
-      const isoCodes = Array.from(new Set(
+      var isoCodes = Array.from(new Set(
         rows.map(r => (r["ISO639-3 codes"] || "").trim())
           .filter(code => code && code !== "" && code !== "None")
       ));
+
+      if (isoCodes.length == 0) {
+        isoCodes = "None found"
+      }
+      
       return {
         id,
         name: r0["Name in English"],
@@ -136,6 +141,7 @@ const Coordinator = {
     initControls();
     MapView.init(geo);
     NetworkView.init();
+    ChartView.init();
     this.applyFilters();
   },
 
@@ -154,11 +160,13 @@ const Coordinator = {
     );
     MapView.update(filtered);
     NetworkView.update(filtered);
+    ChartView.update(filtered);
   },
 
   hoverCountry(country) {
     MapView.highlightCountry(country);
     NetworkView.highlightCountry(country);
+    ChartView.highlightCountry(country);
   },
 
   hoverLanguage(langId) {
@@ -186,6 +194,8 @@ const Coordinator = {
       <p><strong>Shared with:</strong> ${node.neighbours.size} other countries</p>
       <p>${langNames.slice(0, 30).join(", ")}${langNames.length > 30 ? ", …" : ""}</p>
     `);
+
+    ChartView.highlightCountry(node.id);
   }
 };
 
