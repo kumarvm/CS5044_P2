@@ -10,6 +10,6 @@ def expand(df, col):
 for col in ['Countries', 'Country codes alpha 3', 'ISO639-3 codes']:
     df = expand(df, col)
 
-df = df.drop(['Name in French', 'Name in Spanish', 'Sources', 'Description of the location'], axis=1) #Dropping columns not required for visualisations
+df = df.drop(['Name in French', 'Name in Spanish', 'Sources',], axis=1) #Dropping columns not required for visualisations
 
 df.to_csv('cleaned_data.csv', index=False)
