@@ -1,5 +1,3 @@
-// app.js — data loading, filter state, cross-view coordination.
-// Expects MapView, NetworkView, ChartView globals (defined in map.js / network.js / chart.js).
 
 const ENDANGERMENT_LEVELS = [
   "Vulnerable",
@@ -14,7 +12,7 @@ const ENDANGERMENT_COLOR = d3.scaleOrdinal()
   .domain(ENDANGERMENT_LEVELS)
   .range(["#fee08b", "#fdae61", "#f46d43", "#d73027", "#7f0000"]);
 
-// Country-name -> continent. Names match the UNESCO CSV spellings.
+
 const COUNTRY_CONTINENT = {
   // Europe
   "Italy": "Europe", "Germany": "Europe", "France": "Europe", "Spain": "Europe",
@@ -92,7 +90,8 @@ const state = {
   endangermentActive: new Set(ENDANGERMENT_LEVELS),
   minSpeakersSlider: 0, // 0-100, log-mapped to actual speakers
   minSpeakers: 0,
-  continent: "all"
+  continent: "all",
+  showNeighbourLinks: true
 };
 
 let allLanguages = [];
@@ -105,7 +104,6 @@ const Coordinator = {
       d3.csv("cleaned_data.csv")
     ]);
 
-    // Dedup by language ID; reconstruct country list by unioning the exploded rows.
     const byId = d3.group(raw, d => d.ID);
     allLanguages = Array.from(byId, ([id, rows]) => {
       const r0 = rows[0];
@@ -235,6 +233,13 @@ function initControls() {
   d3.select("#continent-filter")
     .on("change", function() {
       state.continent = this.value;
+      Coordinator.applyFilters();
+    });
+
+  // Closest-neighbour link overlay toggle
+  d3.select("#neighbour-toggle")
+    .on("change", function() {
+      state.showNeighbourLinks = this.checked;
       Coordinator.applyFilters();
     });
 }

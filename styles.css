@@ -1,36 +1,96 @@
+:root {
+  --bg: #fafafa;
+  --panel-bg: #fff;
+  --text: #222;
+  --text-muted: #555;
+  --legend-text: #777;
+  --border: #e2e2e2;
+  --fieldset-border: #ddd;
+  --map-bg: #f0f0f0;
+  --svg-bg: #f9f9f9;
+  --country-fill: #e5e5e5;
+  --country-stroke: #bbb;
+  --link-stroke: rgba(0,0,0,0.35);
+  --marker-stroke: rgba(0,0,0,0.25);
+  --tooltip-bg: #fff;
+  --tooltip-border: #bbb;
+  --tooltip-text: #222;
+  --label-fill: #333;
+  --highlight-stroke: #111;
+  --chart-tooltip-bg: rgba(0,0,0,0.8);
+  --chart-tooltip-text: #fff;
+}
+
+body.dark {
+  --bg: #15181d;
+  --panel-bg: #1f2329;
+  --text: #e5e7eb;
+  --text-muted: #b4b8c0;
+  --legend-text: #9ca3af;
+  --border: #2d323a;
+  --fieldset-border: #3a3f47;
+  --map-bg: #0e1116;
+  --svg-bg: #181b20;
+  --country-fill: #252a32;
+  --country-stroke: #3a3f47;
+  --link-stroke: rgba(255,255,255,0.4);
+  --marker-stroke: rgba(255,255,255,0.35);
+  --tooltip-bg: #252a32;
+  --tooltip-border: #4a4f57;
+  --tooltip-text: #e5e7eb;
+  --label-fill: #d1d5db;
+  --highlight-stroke: #fff;
+  --chart-tooltip-bg: rgba(240,240,240,0.92);
+  --chart-tooltip-text: #111;
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, sans-serif;
-  background: #fafafa;
-  color: #222;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.2s, color 0.2s;
 }
 
 header {
   padding: 16px 24px 12px;
-  background: #fff;
-  border-bottom: 1px solid #e2e2e2;
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--border);
 }
 header h1 { margin: 0 0 6px; font-size: 22px; }
-header .intro { margin: 0; font-size: 13px; color: #555; max-width: 1100px; line-height: 1.45; }
+header .intro { margin: 0; font-size: 13px; color: var(--text-muted); max-width: 1100px; line-height: 1.45; }
 
 #controls {
   display: flex;
   gap: 14px;
   padding: 10px 24px;
-  background: #fff;
-  border-bottom: 1px solid #e2e2e2;
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--border);
   flex-wrap: wrap;
   align-items: center;
 }
 #controls fieldset {
-  border: 1px solid #ddd;
+  border: 1px solid var(--fieldset-border);
   border-radius: 4px;
   padding: 4px 10px 6px;
   margin: 0;
+  color: var(--text);
 }
-#controls legend { font-size: 11px; color: #777; padding: 0 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+#controls legend {
+  font-size: 11px;
+  color: var(--legend-text);
+  padding: 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 #controls input[type="range"] { vertical-align: middle; width: 180px; }
-#controls select { font-size: 13px; padding: 2px 4px; }
+#controls select {
+  font-size: 13px;
+  padding: 2px 4px;
+  background: var(--panel-bg);
+  color: var(--text);
+  border: 1px solid var(--fieldset-border);
+}
 #controls .status span { font-size: 13px; font-weight: 600; }
 
 #endangerment-filters label {
@@ -49,6 +109,17 @@ header .intro { margin: 0; font-size: 13px; color: #555; max-width: 1100px; line
   border: 1px solid rgba(0,0,0,0.1);
 }
 
+/* Theme switch */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+}
+.theme-switch input { margin: 0; }
+
 #views {
   display: flex;
   flex-direction: column;
@@ -58,25 +129,24 @@ header .intro { margin: 0; font-size: 13px; color: #555; max-width: 1100px; line
 
 .map-container {
   width: 100%;
-  background: #fff;
-  border: 1px solid #e2e2e2;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 8px 10px 10px;
   box-sizing: border-box;
 }
-
-.map-container h2 { 
-  margin: 0 0 6px; 
-  font-size: 13px; 
-  color: #444; 
-  font-weight: 600; 
+.map-container h2 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
-#map { 
-  width: 100%; 
-  height: 500px; 
-  display: block; 
-  background: #f0f0f0;
+#map {
+  width: 100%;
+  height: 500px;
+  display: block;
+  background: var(--map-bg);
   border-radius: 2px;
 }
 
@@ -85,74 +155,95 @@ header .intro { margin: 0; font-size: 13px; color: #555; max-width: 1100px; line
   gap: 12px;
   width: 100%;
 }
-
 .bottom-views .view {
   flex: 1;
-  background: #fff;
-  border: 1px solid #e2e2e2;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 8px 10px 10px;
   min-width: 0;
   box-sizing: border-box;
 }
-
-.bottom-views .view h2 { 
-  margin: 0 0 6px; 
-  font-size: 13px; 
-  color: #444; 
-  font-weight: 600; 
+.bottom-views .view h2 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
-#network, #chart { 
-  width: 100%; 
-  height: 450px; 
-  display: block; 
-  background: #f9f9f9;
+#network, #chart {
+  width: 100%;
+  height: 450px;
+  display: block;
+  background: var(--svg-bg);
   border-radius: 2px;
 }
 
 #details {
   padding: 10px 24px 20px;
-  background: #fff;
-  border-top: 1px solid #e2e2e2;
+  background: var(--panel-bg);
+  border-top: 1px solid var(--border);
   min-height: 50px;
   font-size: 13px;
+  color: var(--text);
 }
 #details h3 { margin: 0 0 4px; font-size: 14px; }
 #details p { margin: 2px 0; }
-#details .placeholder { color: #888; font-style: italic; margin: 0; }
+#details .placeholder { color: var(--legend-text); font-style: italic; margin: 0; }
 
 .tooltip {
   position: absolute;
-  background: #fff;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
   padding: 6px 8px;
-  border: 1px solid #bbb;
+  border: 1px solid var(--tooltip-border);
   border-radius: 4px;
   pointer-events: none;
   font-size: 12px;
   line-height: 1.35;
   opacity: 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
   max-width: 260px;
 }
 
-.language-circle { cursor: pointer; transition: opacity 0.15s; }
+/* Map styling (theme-aware) */
+.map-country {
+  fill: var(--country-fill);
+  stroke: var(--country-stroke);
+  stroke-width: 0.5;
+}
+.neighbour-link {
+  stroke: var(--link-stroke);
+  stroke-width: 0.8;
+  stroke-opacity: 0.55;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+.neighbour-link.dim { opacity: 0.05; }
+.neighbour-link.highlight { stroke: var(--highlight-stroke); stroke-opacity: 0.9; stroke-width: 1.4; }
+
+.language-circle {
+  cursor: pointer;
+  stroke: var(--marker-stroke);
+  stroke-width: 0.5;
+  transition: opacity 0.15s;
+}
 .language-circle.dim { opacity: 0.08; }
-.language-circle.highlight { stroke: #111; stroke-width: 1.5px; }
+.language-circle.highlight { stroke: var(--highlight-stroke); stroke-width: 1.5px; }
 
 .country-node { cursor: pointer; transition: opacity 0.15s; }
 .country-node.dim { opacity: 0.15; }
-.country-node.highlight { stroke: #111; stroke-width: 2.5px; }
+.country-node.highlight { stroke: var(--highlight-stroke); stroke-width: 2.5px; }
 
 .country-link.dim { opacity: 0.05; }
 
-.country-label { font-family: sans-serif; fill: #333; }
+.country-label { font-family: sans-serif; fill: var(--label-fill); }
 .country-label.dim { opacity: 0.15; }
 
 .chart-tooltip {
   position: absolute;
-  background: rgba(0,0,0,0.8);
-  color: white;
+  background: var(--chart-tooltip-bg);
+  color: var(--chart-tooltip-text);
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 12px;
@@ -160,40 +251,19 @@ header .intro { margin: 0; font-size: 13px; color: #555; max-width: 1100px; line
   z-index: 1000;
 }
 
-.bar {
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
+.bar { cursor: pointer; transition: opacity 0.2s; }
 .bar-label {
   font-size: 11px;
   font-weight: bold;
-  fill: #333;
+  fill: var(--label-fill);
   text-anchor: middle;
 }
 
 @media (max-width: 768px) {
-  .bottom-views {
-    flex-direction: column;
-  }
-  
-  #map {
-    height: 400px;
-  }
-  
-  #network, #chart {
-    height: 350px;
-  }
-  
-  #controls {
-    padding: 10px 16px;
-  }
-  
-  #views {
-    padding: 8px;
-  }
-  
-  #details {
-    padding: 10px 16px 20px;
-  }
+  .bottom-views { flex-direction: column; }
+  #map { height: 400px; }
+  #network, #chart { height: 350px; }
+  #controls { padding: 10px 16px; }
+  #views { padding: 8px; }
+  #details { padding: 10px 16px 20px; }
 }
