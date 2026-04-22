@@ -259,6 +259,22 @@ header .intro { margin: 0; font-size: 13px; color: var(--text-muted); max-width:
   text-anchor: middle;
 }
 
+/* Chart axes & labels (theme-aware) */
+#chart .axis-label {
+  font-size: 12px;
+  fill: var(--text-muted);
+}
+#chart .x-axis text,
+#chart .y-axis text {
+  fill: var(--label-fill);
+}
+#chart .x-axis path,
+#chart .x-axis line,
+#chart .y-axis path,
+#chart .y-axis line {
+  stroke: var(--country-stroke);
+}
+
 @media (max-width: 768px) {
   .bottom-views { flex-direction: column; }
   #map { height: 400px; }

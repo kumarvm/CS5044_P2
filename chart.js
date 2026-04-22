@@ -19,50 +19,35 @@ const ChartView = (() => {
     
     svg
       .attr("width", width)
-      .attr("height", height)
-      .style("display", "block")
-      .style("background", "#f9f9f9")
-      .style("border-radius", "8px");
-    
+      .attr("height", height);
+
     //Clears any existing content
     svg.selectAll("*").remove();
-    
+
     g = svg.append("g")
       .attr("transform", `translate(${MARGIN.left},${MARGIN.top})`);
-    
-    //Tooltip
+
+    //Tooltip — all visual styling comes from the .chart-tooltip CSS class (theme-aware).
     tooltip = d3.select("body").append("div")
       .attr("class", "chart-tooltip")
-      .style("position", "absolute")
-      .style("visibility", "hidden")
-      .style("background", "rgba(0,0,0,0.8)")
-      .style("color", "white")
-      .style("padding", "8px 12px")
-      .style("border-radius", "4px")
-      .style("font-size", "12px")
-      .style("pointer-events", "none")
-      .style("z-index", "1000");
+      .style("visibility", "hidden");
     
     //Sets bar chart styles
     g.append("g").attr("class", "x-axis");
     g.append("g").attr("class", "y-axis");
     
     g.append("text")
-      .attr("class", "x-label")
+      .attr("class", "axis-label x-label")
       .attr("x", (width - MARGIN.left - MARGIN.right) / 2)
       .attr("y", height - MARGIN.bottom + 35)
       .attr("text-anchor", "middle")
-      .style("font-size", "12px")
-      .style("fill", "#666")
       .text("Endangerment Level");
-    
+
     g.append("text")
-      .attr("class", "y-label")
+      .attr("class", "axis-label y-label")
       .attr("x", -35)
       .attr("y", 15)
       .attr("text-anchor", "middle")
-      .style("font-size", "12px")
-      .style("fill", "#666")
       .attr("transform", "rotate(-90)")
       .text("Number of Languages");
     
@@ -259,9 +244,6 @@ const ChartView = (() => {
       .attr("x", d => xScale(d.level) + xScale.bandwidth() / 2)
       .attr("y", innerHeight)
       .attr("text-anchor", "middle")
-      .style("font-size", "11px")
-      .style("fill", "#333")
-      .style("font-weight", "bold")
       .merge(labelsUpdate) // Merge enter and update
       .transition()
       .duration(500)
